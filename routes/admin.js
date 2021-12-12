@@ -1,11 +1,14 @@
 const router = require('express').Router()
 const adminController = require('../controllers/adminController')
+const categoryController = require('../controllers/categoryController')
 
 router.get('/dashboard', adminController.dashboard)
 
 // category
-router.get('/categories', adminController.category)
-router.post('/categories', adminController.storeCategory)
+router.get('/categories', categoryController.category)
+router.post('/categories', categoryController.storeCategory)
+router.put('/categories', categoryController.updateCategory)
+router.delete('/categories/:id', categoryController.deleteCategory)
 
 // bank
 router.get('/banks', adminController.bank)

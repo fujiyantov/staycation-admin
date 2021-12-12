@@ -5,7 +5,7 @@
       type="button"
       class="btn btn-primary"
       data-toggle="modal"
-      data-target="#exampleModal"
+      data-target="#add-modal-category"
     >
       Create
     </button>
@@ -20,12 +20,36 @@
       >
         <thead>
           <tr>
-            <th>#</th>
+            <th style="width: 20px">#</th>
             <th>Name</th>
             <th>Action</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          <% for(i = 0; i < categories.length; i++) { %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= categories[i].name %></td>
+            <td>
+              <form
+                action="categories/<%= categories[i].id %>?_method=DELETE"
+                method="POST"
+              >
+                <a
+                  href="javascript:void()"
+                  class="btn btn-warning btn-circle btn-sm btn-update"
+                  data-id="<%= categories[i].id %>"
+                  data-name="<%= categories[i].name %>"
+                  ><i class="fa fa-edit"></i
+                ></a>
+                <button type="submit" class="btn btn-danger btn-circle btn-sm">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
       </table>
     </div>
   </div>

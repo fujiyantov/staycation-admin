@@ -1,4 +1,6 @@
 const schemaBank = require('../models/Bank')
+const fs = require('fs-extra')
+const path = require('path')
 module.exports = {
     bank: async (req, res) => {
         try {
@@ -25,10 +27,12 @@ module.exports = {
                 nomorRekening,
                 name
             } = req.body
+
             await schemaBank.create({
                 nameBank,
                 nomorRekening,
                 name,
+                imageUrl: `images/${req.file.filename}`
             })
             req.flash('alertMessage', 'Create Bank ' + name + 'has been successfully')
             req.flash('status', 'success')
@@ -50,10 +54,20 @@ module.exports = {
             const bank = await schemaBank.findOne({
                 _id: id
             })
-            bank.nameBank = nameBank
-            bank.nomorRekening = nomorRekening
-            bank.name = name
-            await bank.save();
+            if(req.file == undefined) {
+
+                bank.nameBank = nameBank
+                bank.nomorRekening = nomorRekening
+                bank.name = name
+                await bank.save();
+            } else {
+                await fs.unlink(path.join(`public/${bank.imageUrl}`))
+                bank.nameBank = nameBank
+                bank.nomorRekening = nomorRekening
+                bank.name = name
+                bank.imageUrl = `images/${req.file.filename}`
+                await bank.save();
+            }
 
             req.flash('alertMessage', 'Update bank ' + name + 'has been successfully')
             req.flash('alertStatus', 'success')
@@ -74,6 +88,7 @@ module.exports = {
             })
             req.flash('alertMessage', 'Destory bank has been successfully')
             req.flash('alertStatus', 'success')
+            await fs.unlink(path.join(`public/${bank.imageUrl}`))
             await bank.remove()
             res.redirect('/admin/banks')
         } catch (error) {

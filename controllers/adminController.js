@@ -4,11 +4,6 @@ module.exports = {
             title: 'Staycation | Dashboard'
         })
     },
-    bank: (req, res) => {
-        res.render('admin/bank/index', {
-            title: 'Staycation | Bank'
-        })
-    },
     item: (req, res) => {
         res.render('admin/item/index', {
             title: 'Staycation | Item'

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const bankSchema = new mongoose.Schema({
-    nomorBank: {
+    nameBank: {
         type: String,
         required: true
     },

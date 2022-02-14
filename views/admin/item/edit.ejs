@@ -1,0 +1,69 @@
+<div class="card shadow mb-4 mt-2">
+  <div class="card-body">
+    <form action="<%= item.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="name">Title Edit</label>
+        <input
+          type="text"
+          class="form-control"
+          name="title"
+          placeholder="Enter title"
+          required
+          value="<%= item.title %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Price</label>
+        <input
+          type="number"
+          class="form-control"
+          name="price"
+          placeholder="Enter price"
+          required
+          value="<%= item.price %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">City</label>
+        <input
+          type="text"
+          class="form-control"
+          name="city"
+          placeholder="Enter city"
+          required
+          value="<%= item.city %>"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Category</label>
+        <select class="form-control" name="categoryId">
+          <option value="<%= item.categoryId._id %>"> <%= item.categoryId.name %> <option>
+          <% for(let i = 0; i< category.length; i++){ %>
+          <option value="<%= category[i].id %>"><%= category[i].name %></option>
+          <%}%>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="name">Image</label>
+        <input
+          type="file"
+          class="form-control"
+          name="image"
+          multiple
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Description</label>
+        <textarea name="about" class="form-control"><%= item.description %></textarea>
+      </div>
+      <input
+          type="hidden"
+          class="form-control"
+          name="id"
+          required
+          value="<%= item.id %>"
+        />
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+</div>

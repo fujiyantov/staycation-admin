@@ -10,6 +10,7 @@ const {
     upload,
     uploadMultiple
 } = require('../middlewares/multer')
+const bookingController = require('../controllers/bookingController')
 
 router.get('/signin', adminController.viewSignIn)
 router.post('/signin', adminController.actionSignIn)
@@ -52,6 +53,9 @@ router.put('/items/update/activity', upload, activityController.editActivity);
 router.delete('/items/:itemId/activity/:id', activityController.deleteActivity);
 
 // booking
-router.get('/bookings', adminController.booking)
+router.get('/booking', bookingController.viewBooking);
+router.get('/booking/:id', bookingController.showDetailBooking);
+router.put('/booking/:id/confirmation', bookingController.actionConfirmation);
+router.put('/booking/:id/reject', bookingController.actionReject);
 
 module.exports = router;

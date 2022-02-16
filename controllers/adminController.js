@@ -1,18 +1,25 @@
+const Member = require('../models/Member')
+const Booking = require('../models/Booking')
+const Item = require('../models/Item')
 const User = require('../models/Users')
 const bcrypt = require('bcrypt')
 
 module.exports = {
-    dashboard: (req, res) => {
-        res.render('admin/dashboard/index', {
-            title: 'Staycation | Dashboard',
-            user: req.session.user
-        })
-    },
-    booking: (req, res) => {
-        res.render('admin/booking/index', {
-            title: 'Staycation | Booking',
-            user: req.session.user
-        })
+    dashboard: async (req, res) => {
+        try {
+            const member = await Member.find()
+            const booking = await Booking.find()
+            const item = await Item.find()
+            res.render('admin/dashboard/index', {
+                title: 'Staycation | Dashboard',
+                user: req.session.user,
+                member,
+                booking,
+                item,
+            })
+        } catch (error) {
+            res.redirect('/admin/dashboard')
+        }
     },
     viewSignIn: async (req, res) => {
         try {

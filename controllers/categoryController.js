@@ -13,7 +13,8 @@ module.exports = {
             res.render('admin/category/index', {
                 categories,
                 alert,
-                title: 'Staycation | Category'
+                title: 'Staycation | Category',
+                user: req.session.user
             })
         } catch (error) {
             res.redirect('/admin/categories')

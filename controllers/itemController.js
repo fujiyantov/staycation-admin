@@ -25,7 +25,8 @@ module.exports = {
                 alert,
                 item,
                 action: 'view',
-                title: 'Staycation | Item'
+                title: 'Staycation | Item',
+                user: req.session.user
             })
         } catch (error) {
             res.redirect('/admin/items')
@@ -104,7 +105,8 @@ module.exports = {
                 alert,
                 item,
                 action: 'edit',
-                title: 'Staycation | Edit Item'
+                title: 'Staycation | Edit Item',
+                user: req.session.user
             })
         } catch (error) {
             res.redirect('/admin/items')

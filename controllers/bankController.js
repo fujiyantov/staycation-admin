@@ -14,7 +14,8 @@ module.exports = {
             res.render('admin/bank/index', {
                 banks,
                 alert,
-                'title': 'Staycation | Bank'
+                'title': 'Staycation | Bank',
+                user: req.session.user
             })
         } catch (error) {
             res.redirect('/admin/banks')

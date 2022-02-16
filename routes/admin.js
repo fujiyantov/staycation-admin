@@ -1,13 +1,24 @@
 const router = require('express').Router()
 const adminController = require('../controllers/adminController')
 const categoryController = require('../controllers/categoryController')
-const bankControlelr = require('../controllers/bankController')
-const itemControlelr = require('../controllers/itemController')
+const bankController = require('../controllers/bankController')
+const itemController = require('../controllers/itemController')
+const featureController = require('../controllers/featureController')
+const activityController = require('../controllers/activityController')
+const auth = require('../middlewares/auth.js')
 const {
     upload,
     uploadMultiple
 } = require('../middlewares/multer')
 
+router.get('/signin', adminController.viewSignIn)
+router.post('/signin', adminController.actionSignIn)
+
+// auth
+router.use(auth)
+router.get('/signout', adminController.actionSignOut)
+
+// dahsboard
 router.get('/dashboard', adminController.dashboard)
 
 // category
@@ -17,17 +28,28 @@ router.put('/categories', categoryController.updateCategory)
 router.delete('/categories/:id', categoryController.deleteCategory)
 
 // bank
-router.get('/banks', bankControlelr.bank)
-router.post('/banks', upload, bankControlelr.storeBank)
-router.put('/banks', upload, bankControlelr.updateBank)
-router.delete('/banks/:id', bankControlelr.deleteBank)
+router.get('/banks', bankController.bank)
+router.post('/banks', upload, bankController.storeBank)
+router.put('/banks', upload, bankController.updateBank)
+router.delete('/banks/:id', bankController.deleteBank)
 
 // item
-router.get('/items', itemControlelr.item)
-router.post('/items', uploadMultiple, itemControlelr.storeItem)
-router.get('/items/:id', itemControlelr.editItem)
-router.put('/items/:id', uploadMultiple, itemControlelr.updateItem)
-router.delete('/items/:id', itemControlelr.deleteItem)
+router.get('/items', itemController.item)
+router.post('/items', uploadMultiple, itemController.storeItem)
+router.get('/items/:id', itemController.editItem)
+router.put('/items/:id', uploadMultiple, itemController.updateItem)
+router.delete('/items/:id', itemController.deleteItem)
+
+// Feature
+router.get('/items/show-detail-item/:itemId', featureController.viewDetailItem);
+router.post('/items/add/feature', upload, featureController.addFeature);
+router.put('/items/update/feature', upload, featureController.editFeature);
+router.delete('/items/:itemId/feature/:id', featureController.deleteFeature);
+
+// Activity
+router.post('/items/add/activity', upload, activityController.addActivity);
+router.put('/items/update/activity', upload, activityController.editActivity);
+router.delete('/items/:itemId/activity/:id', activityController.deleteActivity);
 
 // booking
 router.get('/bookings', adminController.booking)

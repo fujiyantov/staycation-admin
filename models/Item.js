@@ -12,6 +12,10 @@ const itemSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+    sumBooking: {
+        type: Number,
+        required: false
+    },
     country: {
         type: String,
         default: 'Indonesia'
@@ -26,6 +30,10 @@ const itemSchema = mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    unit: {
+        type: String,
+        default: "night"
     },
     categoryId: {
         type: ObjectId,
